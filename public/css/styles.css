@@ -4,3 +4,186 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  font-family: Arial, Georgia, 'Times New Roman', Times, serif;
+}
+
+img {
+  height: 100%;
+}
+.checkers {
+  display: none;
+}
+
+/* header styles */
+
+header a, .own-now {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  text-decoration: none;
+  color: black;
+}
+h1, h2, h3, h4 {
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+  color: #094074;
+}
+
+.siteName {
+  font-size: 2em;
+  text-align: left;
+}
+#tools {
+  text-align: right;
+}
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  padding-bottom: .2em;
+}
+
+/* navigation styles */
+nav > ul > li {
+  list-style: none;
+  color: #FFEDDF;
+  padding: 5px;
+}
+
+nav > ul {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1em;
+  font-family: helvetica, Arial, sans-serif;
+}
+
+nav {
+  background-color: #094074;
+}
+
+/* Hover effect for anchor tags */
+nav > ul > li:hover {
+  text-decoration: underline;
+}
+
+/* hero */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+.hero-grid  img {
+  width: 100%;
+  height: auto;
+  justify-self: center;
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+}
+
+.hero-grid div {
+  background-color: rgba(255, 255, 255, 0.581);
+  color: #000000;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  grid-column: 1/2;
+  grid-row: 1/-1;
+}
+.hero-grid .own-now {
+  background-color:#1E90FF;
+  border-radius: 18px;
+  color: black;  
+  text-align: center;
+  padding: 1em;
+  transition: background-color 0.3s ease; /* Adding transition for smooth effect */
+}
+
+.hero-grid .own-now:hover {
+  background-color: #7f8c8d; /* Changing background color on hover */
+  color: white; /* Changing text color on hover */
+}
+
+.extra-grid ul li{
+  padding: 6px;
+}
+
+/* upgrades */
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.upgrades {
+  text-align: center;
+}
+.upgrade {
+  background-color:dodgerblue;
+  border: 2px solid gray;
+  min-height: 5em;
+  text-align: center;
+  margin: .5em;
+  height: 60%;
+}
+.upgrades h2 {
+  text-align: left;
+}
+.upgrade img {
+  padding: .6em;
+}
+
+/* footer */
+footer {
+  padding: 1em;
+  padding-bottom: .2em;
+}
+
+@media screen and (min-width: 700px) {
+  /* body + main + checkerboard */
+  body {
+    background-image: url("/images/site/checkerboard.jpg");
+    background-repeat:repeat;
+    background-size: 35em 35em;
+  }
+  #wrapper {
+    background-color: white;
+    border-radius: 1.2em;
+    border: 2px solid cornflowerblue;
+    width: 80%;
+    margin: auto;
+    /* display: none; */
+  }
+
+  /* main + nav sizing */
+  main, nav {
+    margin: 1em;
+  }
+
+  /* reviews + upgrades */
+  .extra-grid {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+
+  }
+
+  
+}
+
+/* Media query for screens 300px or less */
+@media screen and (max-width: 300px) {
+  nav > ul {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+
+  nav > ul > li {
+    margin-bottom: 10px; /* Add space between stacked items */
+  }
+}
+
+/* Media query for screens 250px or less */
+@media screen and (max-width: 250px) {
+  .upgrade-grid {
+    grid-template-columns: 1fr; /* Set only one column for stacking */
+  }
+}
