@@ -43,10 +43,20 @@ h1, h2, h3, h4 {
 }
 
 /* navigation styles */
-nav > ul > li {
+nav a {
+  color: #ffffff;
+  font-weight: bold;
+  padding: 8px;
+  text-decoration: none; 
+  transition: color 0.3s ease; 
+}
+
+nav a:hover {
+  color: #e74c3c; 
+}
+
+nav ul li {
   list-style: none;
-  color: #FFEDDF;
-  padding: 5px;
 }
 
 nav > ul {
@@ -86,7 +96,7 @@ nav > ul > li:hover {
   color: #000000;
   padding-left: 1em;
   padding-right: 1em;
-  width: 100%;
+  width: 90%;
   grid-column: 1/2;
   grid-row: 1/-1;
 }
@@ -96,18 +106,111 @@ nav > ul > li:hover {
   color: black;  
   text-align: center;
   padding: 1em;
-  transition: background-color 0.3s ease; /* Adding transition for smooth effect */
+  transition: background-color 0.3s ease; 
 }
 
 .hero-grid .own-now:hover {
-  background-color: #7f8c8d; /* Changing background color on hover */
-  color: white; /* Changing text color on hover */
+  background-color: #7f8c8d; 
+  color: white; 
 }
 
 .extra-grid ul li{
   padding: 6px;
 }
 
+/* Styles for the inventory display container */
+#inv-display {
+  display: grid;
+  gap: 1em; 
+  list-style: none; 
+  padding: 1em; 
+  justify-content: center; 
+}
+
+/* Styles for each inventory item */
+#inv-display li {
+  height: auto; 
+  width: 100%;
+  max-width: 25em;
+  background-color: #f4f4f4; 
+  border-radius: 1.5em; 
+  margin: 1em; 
+  padding: 2em; 
+  text-align: center; 
+}
+
+/* Styles for images within inventory items */
+#inv-display li img {
+  height: auto; 
+  max-height: 10em;
+  width: 100%; 
+  max-width: 100%; 
+}
+
+/* Add hover effect */
+#inv-display li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+}
+
+/* Add hover effect to images */
+#inv-display li:hover img {
+  transform: scale(1.1); /* Enlarge image on hover */
+}
+
+/* Styles for the single vehicle wrapper */
+#singleVehicleWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* Styles for the vehicle image */
+#singleVehicleWrapper img {
+  max-width: 100%; 
+  height: auto;  
+}
+
+/* Styles for the vehicle details list */
+#singleVehicleDetails {
+  list-style: none; 
+  padding: 0; 
+}
+
+#singleVehicleDetails li:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Styles for vehicle detail headings */
+#singleVehicleDetails li h2 {
+  font-size: 1.2em; 
+  margin: 0; 
+  padding: 0; 
+}
+
+/* Styles for vehicle details */
+#singleVehicleDetails li {
+  font-size: 1.2em; 
+  padding: .8em; 
+  border-radius: .5em; 
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: baseline;
+}
+
+footer a {
+  color: #ffffff;
+  font-weight: bold;
+ 
+  text-decoration: none;
+}
 /* upgrades */
 .upgrade-grid {
   display: grid;
@@ -153,9 +256,18 @@ footer {
     /* display: none; */
   }
 
-  /* main + nav sizing */
+  /* main + nav sizing */  
   main, nav {
     margin: 1em;
+  }
+
+  main .message {
+  font-family: 'Helvetica', Arial, sans-serif;
+  font-weight: bold;
+  color: #e74c3c; 
+  font-size: 1.2em; 
+  text-align: center; 
+   height: 6em;
   }
 
   /* reviews + upgrades */
@@ -166,24 +278,43 @@ footer {
 
   }
 
+}
+
+/* Media query for screens 300px or less */
+@media screen and (max-width: 700px) {
+  main .message {
+    color: #e74c3c; 
+    text-align: center; 
+    font-weight: 700; 
+    height: 7em;  
+  }
   
 }
 
 /* Media query for screens 300px or less */
 @media screen and (max-width: 300px) {
   nav > ul {
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
+    flex-direction: column; 
+    align-items: center; 
   }
 
   nav > ul > li {
-    margin-bottom: 10px; /* Add space between stacked items */
+    margin-bottom: 10px;
   }
 }
 
 /* Media query for screens 250px or less */
 @media screen and (max-width: 250px) {
   .upgrade-grid {
-    grid-template-columns: 1fr; /* Set only one column for stacking */
+    grid-template-columns: 1fr; 
   }
 }
+
+/* Media query para dispositivos con un ancho máximo de 600px */
+@media only screen and (max-width: 1100px) {
+  #singleVehicleWrapper {
+    flex-direction: column;
+    align-items: center; /* Para centrar los elementos verticalmente */
+  }
+}
+
