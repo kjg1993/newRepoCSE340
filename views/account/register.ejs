@@ -1,0 +1,41 @@
+<!-- Añadir h1, buen SEO y un encabezado para la página -->
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- Muestra mensajes de error -->
+<%- messages() %>
+
+<!-- Mostrar errores -->
+<% if (errors && errors.length > 0) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<% }) %>
+ </ul>
+<% } %>
+
+<!-- Show page content -->
+<form class="form register-form" action="/account/register" method="post">
+  <p>* All fields are required</p>
+  <fieldset class="form--fieldset register-form--fieldset"> 
+    <label for="account_firstname">Name:</label>
+    <input type="text" name="account_firstname" id="account_firstname" placeholder="Introduce tu nombre" value="<%= locals.account_firstname %>" pattern="^[A-Za-z0-9\-']+$" autofocus required>
+
+    <label for="account_lastname">Last Name:</label>
+    <input type="text" name="account_lastname" id="account_lastname" placeholder="Introduce tu apellido" value="<%= locals.account_lastname %>" pattern="^[A-Za-z0-9\-']+$" required>
+
+    <label for="account_email">Email:</label>
+    <input type="email" name="account_email" id="account_email" placeholder="Introduce tu correo" value="<%= locals.account_email %>" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+.\.[a-zA-Z]{2,}$" required>
+
+    <label for="account_password">Password:</label>
+    <input type="password" name="account_password" id="account_password" placeholder="Elige una contraseña segura" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+    <p>*Passwords must be at least 12 characters and include 1 uppercase letter, 1 number, and 1 special character</p>
+
+    <input type="submit" value="Regíster">
+  </fieldset>
+  <p>Do you already have an account?<a href="/account/login">Log in</a></p> 
+</form> 
+<script src="/js/script.js"></script>

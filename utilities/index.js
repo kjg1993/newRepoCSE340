@@ -115,10 +115,28 @@ Util.buildVehicleGrid = async function(data){
   return grid
 }
 
+
 Util.buildBrokenPage = function(){
   let broken = ''
   return broken
 }
+
+/* ************************
+ * Constructs the nav HTML unordered list
+ ************************** */
+Util.getClassSelect = async function (req, res, next) {
+  let data = await invModel.getClassifications()
+  let list = '<select name="classification_id" id="classification_id">'
+  data.rows.forEach((row) => {
+    list += '<option value="' + row.classification_id + '">' 
+      + row.classification_name 
+    + '</option>'
+  })
+  list += '</select>'
+  return list
+}
+
+
 
 /* ****************************************
  * Middleware For Handling Errors

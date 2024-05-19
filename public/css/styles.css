@@ -59,6 +59,22 @@ nav ul li {
   list-style: none;
 }
 
+.notice {
+  list-style: none;
+  padding: 10px;
+  background-color: #d6e9f9; 
+  border: 1px solid #bce8f1; 
+  color: #31708f; 
+  border-radius: 4px; 
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease; 
+}
+
+.notice:hover {
+  background-color: #bce8f1; 
+}
+
+
 nav > ul {
   padding: 0;
   display: flex;
@@ -169,6 +185,148 @@ nav > ul > li:hover {
 #singleVehicleWrapper img {
   max-width: 100%; 
   height: auto;  
+}
+
+
+/** Form styles**/
+input {
+  background-color: #ffffff; /* Color de fondo predeterminado para los campos de entrada */
+}
+
+input:required:invalid, input:focus:invalid {
+  background-color: #ffe6e6; 
+ }
+
+ input:required:valid {
+  background-color: #eaffea;
+ }
+
+ /* Form container */
+.form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Form fieldset */
+.form--fieldset {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Form labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Form submit button */
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form input[type="number"] {
+  width: calc(100% - 12px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Estilos adicionales para los campos de entrada numérica */
+.form input[type="number"]::-webkit-inner-spin-button,
+.form input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Placeholder color */
+.form input[type="number"]::placeholder {
+  color: #999;
+}
+
+/* Estilo de hover para los campos de entrada numérica */
+.form input[type="number"]:hover,
+.form input[type="number"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Additional text below password input */
+.form--fieldset p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* inventory view and management view, and clasification view styles*/
+/* Contenedor de enlaces */
+.management-links {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Enlaces individuales */
+.management-links a {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 10px 16px; /* Ajustamos el tamaño de los botones */
+  margin: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Añadido */
+}
+
+.management-links a:hover {
+  background-color: #0056b3;
+}
+
+.form select {
+  width: calc(100% - 12px);
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Estilos adicionales */
+.addvehicle-form--fieldset {
+  margin-top: 20px;
 }
 
 /* Styles for the vehicle details list */
@@ -318,3 +476,13 @@ footer {
   }
 }
 
+@media (max-width: 767px) { /* Cambiado de min-width a max-width */
+  .management-links {
+      flex-direction: column; /* Cambiado de row a column */
+      align-items: center; /* Añadido */
+  }
+
+  .management-links a {
+      width: auto; /* Cambiado de 100% a auto */
+  }
+}
