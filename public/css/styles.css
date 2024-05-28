@@ -35,11 +35,46 @@ h1, h2, h3, h4 {
 #tools {
   text-align: right;
 }
+
+
 #top-header {
   display: flex;
   justify-content: space-between;
-  padding: 1em;
-  padding-bottom: .2em;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Estilos para el nombre del sitio */
+#top-header .siteName a {
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estilos para la sección de herramientas */
+#top-header #tools {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Usar gap para espacio uniforme entre los enlaces */
+}
+
+/* Estilos para los enlaces */
+#top-header #tools a {
+  text-decoration: none;
+  color: #007BFF;
+  transition: color 0.3s ease;
+}
+
+#top-header #tools a:hover {
+  color: #0056b3;
+}
+
+/* Estilos para el separador */
+#top-header .separator {
+  color: #333;
 }
 
 /* navigation styles */
@@ -59,7 +94,7 @@ nav ul li {
   list-style: none;
 }
 
-.notice {
+.notice li{
   list-style: none;
   padding: 10px;
   background-color: #d6e9f9; 
@@ -70,8 +105,48 @@ nav ul li {
   transition: background-color 0.3s ease; 
 }
 
+/* MANAGEMENT PAGE */
+.management-links {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para los enlaces dentro de management-links */
+.management-links a {
+  display: block;
+  padding: 15px 20px;
+  margin: 10px 0;
+  text-decoration: none;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.management-links a:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
 .notice:hover {
   background-color: #bce8f1; 
+}
+
+ul.notice {
+  list-style-type: none; /* Elimina los marcadores de lista */
+  padding: 0; /* Elimina el relleno predeterminado */
+}
+
+ul.notice li {
+  color: red; 
+  font-weight: bold; 
+  margin-bottom: 5px; 
 }
 
 
@@ -132,6 +207,74 @@ nav > ul > li:hover {
 
 .extra-grid ul li{
   padding: 6px;
+}
+
+/* styles.css */
+
+/* Styles for the manage-inventory section */
+.manage-inventory {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.manage-inventory h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form--fieldset {
+  margin-bottom: 20px;
+}
+
+.form--fieldset label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#classificationList {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 16px;
+  color: #0056B3; /* Color for the select items */
+}
+
+#classificationList option {
+  color: #0056B3; /* Color for the option items */
+}
+
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#inventoryDisplay th, #inventoryDisplay td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+#inventoryDisplay th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+#inventoryDisplay tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* NoScript message */
+noscript {
+  color: red;
+  font-weight: bold;
 }
 
 /* Styles for the inventory display container */
@@ -249,17 +392,6 @@ input[type="submit"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-}
-
-/* Estilos adicionales para los campos de entrada numérica */
-.form input[type="number"]::-webkit-inner-spin-button,
-.form input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.form input[type="number"] {
-  -moz-appearance: textfield;
 }
 
 /* Placeholder color */
@@ -484,5 +616,24 @@ footer {
 
   .management-links a {
       width: auto; /* Cambiado de 100% a auto */
+  }
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 600px) {
+  #top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #top-header #tools {
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px; /* Ajustar el gap para pantallas pequeñas */
+  }
+
+  #top-header .separator {
+    display: none;
   }
 }

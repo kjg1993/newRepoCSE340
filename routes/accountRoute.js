@@ -4,7 +4,13 @@ const router = new express.Router()
 const accountController = require("../controllers/accountController")
 const { handleErrors } = require("../utilities")
 const regValidate = require('../utilities/account-validation')
+const Util = require("../utilities"); 
 
+
+router.get("/", Util.checkLogin, handleErrors(accountController.buildAccount));
+
+// Route to build default account view
+router.get("/account", Util.checkLogin, handleErrors(accountController.buildAccount));
 
 // Route to build account login view
 router.get("/login", handleErrors(accountController.buildLogin));
@@ -14,7 +20,7 @@ router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
-  handleErrors(accountController.loginAccount)
+  handleErrors(accountController.accountLogin)
 )
 
 // Route to build account register view
@@ -27,6 +33,30 @@ router.post(
   regValidate.checkRegData,
   handleErrors(accountController.registerAccount)
 );
+
+// Route to build account login view
+router.get("/edit/:account_id", handleErrors(accountController.buildEditAccount));
+
+// Process the updated account information
+router.post(
+  "/accountupdate",
+  regValidate.updateAccountRules(),
+  regValidate.checkEditAccountData,
+  handleErrors(accountController.editAccountInfo)
+)
+
+// Process the account password change
+router.post(
+  "/changepassword",
+  regValidate.changePasswordRules(),
+  regValidate.checkEditAccountData,
+  handleErrors(accountController.editAccountPassword)
+)
+
+router.get(
+  "/logout",
+  handleErrors(accountController.logoutAccount),
+)
 
 
 

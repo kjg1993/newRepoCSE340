@@ -4,7 +4,8 @@
  *******************************************/
 const session = require("express-session")
 const pool = require('./database/')
-
+const cookieParser = require("cookie-parser")
+const bodyParser = require("body-parser");
 /* ***********************
  * Require Statements
  *************************/
@@ -17,7 +18,7 @@ const expressLayouts = require("express-ejs-layouts");
 const baseController = require(".//controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const utilities = require("./utilities/");
-const bodyParser = require("body-parser");
+
 
 /* ***********************
  * View Engine and Templates
@@ -41,7 +42,6 @@ app.use(session({
   name: 'sessionId',
 }))
 
-app.use(flash());
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -54,6 +54,12 @@ app.use(function(req, res, next){
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+
+// Use cookie parser
+app.use(cookieParser())
+
+// Use token validation
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Routes
@@ -111,3 +117,27 @@ const host = /*'localhost';*/ process.env.HOST;
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`);
 });
+
+
+/*
+/*
+user test info 
+1) Name: Carlos
+   Last Name: Martínez
+   Email: carlos.martinez@test.com
+   Password: fdP+OtM|975S
+
+   
+
+2) Name: Lucía
+   Last Name: Fernández
+   Emai:lucia.fernandez@test.com
+   Password: Lucia2024#
+   H81PaL5sr$[p
+
+  3) Name: Roberto
+   Last Name: Lopez 
+   Emai:roberto.lopez@test.com
+   Password: R0b3rt0L0p3z!
+
+*/

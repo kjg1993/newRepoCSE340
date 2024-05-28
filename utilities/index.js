@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model");
 const Util = {};
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -78,66 +80,74 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
-Util.buildVehicleGrid = async function(data){
-  let grid
-  let vehicle = data[0]
-  if(data){
+Util.buildVehicleGrid = async function (data) {
+  let grid;
+  let vehicle = data[0];
+  if (data) {
     // open single vehicle view wrapper
-    grid = '<div id="singleVehicleWrapper">'
+    grid = '<div id="singleVehicleWrapper">';
     // image with alt
-    grid += '<img src="' + vehicle.inv_image 
-    + '" alt="Image of ' + vehicle.inv_year 
-    + vehicle.inv_make + vehicle.inv_model + '">'
+    grid +=
+      '<img src="' +
+      vehicle.inv_image +
+      '" alt="Image of ' +
+      vehicle.inv_year +
+      vehicle.inv_make +
+      vehicle.inv_model +
+      '">';
     // open unordered list for vehicle data
-    grid += '<ul id="singleVehicleDetails">'
+    grid += '<ul id="singleVehicleDetails">';
     // vehicle subtitle
-    grid += '<li><h2>' 
-    + vehicle.inv_make + ' ' + vehicle.inv_model 
-    + ' Details</h2></li>'
+    grid +=
+      "<li><h2>" +
+      vehicle.inv_make +
+      " " +
+      vehicle.inv_model +
+      " Details</h2></li>";
     // formatted vehicle price
-    grid += '<li><strong>Price: </strong>$' 
-    + new Intl.NumberFormat('en-US').format(vehicle.inv_price) 
-    + '</li>'
+    grid +=
+      "<li><strong>Price: </strong>$" +
+      new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
+      "</li>";
     // vehicle description
-    grid += '<li><strong>Description: </strong>' + vehicle.inv_description + '</li>'
+    grid +=
+      "<li><strong>Description: </strong>" + vehicle.inv_description + "</li>";
     // vehicle miles
-    grid += '<li><strong>Miles: </strong>' 
-    + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) 
-    + '</li>'
+    grid +=
+      "<li><strong>Miles: </strong>" +
+      new Intl.NumberFormat("en-US").format(vehicle.inv_miles) +
+      "</li>";
     // close unordered list for vehicle data
-    grid += '</ul>'
+    grid += "</ul>";
     // close single vehicle view wrapper
-    grid += '</div>'
-
-  } else { 
-    grid += '<p class="notice">Sorry, no matching vehicle could be found.</p>'
+    grid += "</div>";
+  } else {
+    grid += '<p class="notice">Sorry, no matching vehicle could be found.</p>';
   }
-  return grid
-}
+  return grid;
+};
 
-
-Util.buildBrokenPage = function(){
-  let broken = ''
-  return broken
-}
+Util.buildBrokenPage = function () {
+  let broken = "";
+  return broken;
+};
 
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
 Util.getClassSelect = async function (req, res, next) {
-  let data = await invModel.getClassifications()
-  let list = '<select name="classification_id" id="classification_id">'
+  let data = await invModel.getClassifications();
+  let list = "";
   data.rows.forEach((row) => {
-    list += '<option value="' + row.classification_id + '">' 
-      + row.classification_name 
-    + '</option>'
-  })
-  list += '</select>'
-  return list
-}
-
-
-
+    list +=
+      '<option value="' +
+      row.classification_id +
+      '">' +
+      row.classification_name +
+      "</option>";
+  });
+  return list;
+};
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
@@ -145,5 +155,62 @@ Util.getClassSelect = async function (req, res, next) {
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
+
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
+};
+
+/* ****************************************
+ *  Check user authorization, block unauthorized users
+ * ************************************ */
+Util.checkAuthorization = async (req, res, next) => {
+  // auth : 0
+  let auth = 0;
+  // logged in ? next : 0
+  if (res.locals.loggedin) {
+    const account = res.locals.accountData;
+    // admin ? 1 : 0
+    account.account_type == "Admin" || account.account_type == "Employee"
+      ? (auth = 1)
+      : (auth = 0);
+  }
+  if (!auth) {
+    return res.redirect("/account/login");
+  } else {
+    next();
+  }
+};
 
 module.exports = Util;
