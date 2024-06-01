@@ -1,4 +1,5 @@
 const accountModel = require("../models/account-model");
+const messageModel = require("../models/message-model")
 const utilities = require("../utilities/");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -158,10 +159,12 @@ async function accountLogin(req, res) {
 async function buildAccount(req, res, next) {
   try {
     let nav = await utilities.getNav();
+    let unreadMessages = await messageModel.getUnreadMessageCountByAccountId(res.locals.accountData.account_id)
     res.render("account/account", {
       title: "Account",
       nav,
       errors: null,
+      unreadMessages
     });
   } catch (error) {
     next(error); // Pasar el error al siguiente middleware

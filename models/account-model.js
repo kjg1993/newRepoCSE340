@@ -153,6 +153,14 @@ async function changeAccountPassword(account_password, account_id) {
   }
 }
 
+/* *****************************
+*   Get all accounts (SELECT)
+* *************************** */
+async function getAccounts() {
+  return await pool.query("SELECT * FROM public.account ORDER BY account_email")
+}
+
+
 module.exports = {
   registerAccount,
   loginAccount,
@@ -161,5 +169,6 @@ module.exports = {
   getAccountByEmail,
   getAccountById,
   updateAccountInfo,
-  changeAccountPassword
+  changeAccountPassword,
+  getAccounts
 };

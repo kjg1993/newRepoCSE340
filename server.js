@@ -77,6 +77,9 @@ app.use("/inv", inventoryRoute);
 // account route
 app.use("/account", require("./routes/accountRoute"));
 
+// inbox route
+app.use("/inbox", require("./routes/messageRoute"))
+
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
